@@ -1,17 +1,17 @@
-# Meta Safe-Zone Checker
+# Meta Safe-Zone Checker v2
 
 A Streamlit web app for checking Meta creative safe-zone compliance.
 
-## What it checks
+## What changed in v2
 
-- Feed 1:1
-- Reels 9:16
-- Stories 9:16
-- Aspect ratio
-- Resolution
-- Text/logo safe-zone containment
+This version uses 2026-oriented Meta creative best practices from the Billo safe-zone guide:
 
-Background images and photography are allowed to bleed outside the safe zone. This app focuses on text/logo-only compliance.
+- 9:16 vertical creative should use a unified conservative safe zone when it may run across Reels and Stories.
+- Critical elements should avoid the top 14%, bottom 20%-35%, and side edges.
+- Conservative production QA uses the full 35% bottom risk zone and keeps critical elements in the center 80% horizontally.
+- Feed images should default to 4:5, such as 1080×1350 or 1440×1800.
+- 1:1 Feed is still treated as supported/legacy, but it is marked REVIEW rather than ideal.
+- Background imagery may bleed; headline, logo, CTA, price, and legal copy should stay inside the green safe zone.
 
 ## Files to upload to GitHub
 
@@ -28,8 +28,8 @@ README.md
 
 ## Deploy on Streamlit
 
-1. Create a GitHub repo.
-2. Upload these files to the repo.
+1. Create or open your GitHub repo.
+2. Upload these files to the repo root.
 3. Go to Streamlit Community Cloud.
 4. Click New app.
 5. Choose your repo.
