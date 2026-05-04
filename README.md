@@ -1,17 +1,37 @@
-# Meta Safe-Zone Checker v2
+# Meta Safe-Zone Checker v3
 
 A Streamlit web app for checking Meta creative safe-zone compliance.
 
-## What changed in v2
+## Production formats
 
-This version uses 2026-oriented Meta creative best practices from the Billo safe-zone guide:
+This version uses only the current formats requested:
 
-- 9:16 vertical creative should use a unified conservative safe zone when it may run across Reels and Stories.
-- Critical elements should avoid the top 14%, bottom 20%-35%, and side edges.
-- Conservative production QA uses the full 35% bottom risk zone and keeps critical elements in the center 80% horizontally.
-- Feed images should default to 4:5, such as 1080×1350 or 1440×1800.
-- 1:1 Feed is still treated as supported/legacy, but it is marked REVIEW rather than ideal.
-- Background imagery may bleed; headline, logo, CTA, price, and legal copy should stay inside the green safe zone.
+- Feed: 1:1
+- Reels: 9:16
+- Stories: 9:16
+
+No 4:5 Feed requirement is applied in this version.
+
+## Safe-zone rules
+
+- Feed: outer 10% caution zone on all sides.
+- Reels: 14% top, 35% bottom, 6% sides.
+- Stories: 14% top, 20% bottom, 6% sides.
+
+## Expected Meta CTA/UI overlap
+
+The app explicitly checks the lower UI/CTA region for Reels and Stories:
+
+- Reels: bottom 35%
+- Stories: bottom 20%
+
+Detected text/logo/CTA in those regions is marked FAIL.
+
+## What counts
+
+The checker focuses on text/logo/CTA/legal-copy containment.
+
+Photography, food imagery, background design, and visual bleed are allowed outside the safe zone.
 
 ## Files to upload to GitHub
 
@@ -28,13 +48,10 @@ README.md
 
 ## Deploy on Streamlit
 
-1. Create or open your GitHub repo.
-2. Upload these files to the repo root.
-3. Go to Streamlit Community Cloud.
-4. Click New app.
-5. Choose your repo.
-6. Set main file path to `app.py`.
-7. Deploy.
+1. Upload/replace these files in your GitHub repo.
+2. Commit changes.
+3. Streamlit should redeploy automatically.
+4. If it does not, open Streamlit and click reboot/redeploy.
 
 ## Local run
 
@@ -45,4 +62,4 @@ streamlit run app.py
 
 ## Notes
 
-OCR is used to detect text. Very small logos or stylized marks may require manual review.
+OCR is used to detect text. Very small logos, stylized logos, and low-contrast legal copy may require manual review.
