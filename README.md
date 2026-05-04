@@ -1,31 +1,26 @@
-# Meta Safe-Zone Checker v3
+# Meta Safe-Zone Checker v4
 
 A Streamlit web app for checking Meta creative safe-zone compliance.
 
 ## Production formats
 
-This version uses only the current formats requested:
+This version uses only:
 
 - Feed: 1:1
 - Reels: 9:16
 - Stories: 9:16
 
-No 4:5 Feed requirement is applied in this version.
-
 ## Safe-zone rules
 
-- Feed: outer 10% caution zone on all sides.
-- Reels: 14% top, 35% bottom, 6% sides.
+- Feed: critical text/logo inside central 80% of the 1:1 frame.
+- Reels: 14% top, 20% bottom, 6% sides.
 - Stories: 14% top, 20% bottom, 6% sides.
 
-## Expected Meta CTA/UI overlap
+## CTA overlap behavior
 
-The app explicitly checks the lower UI/CTA region for Reels and Stories:
+This version removes CTA-overlap failure logic.
 
-- Reels: bottom 35%
-- Stories: bottom 20%
-
-Detected text/logo/CTA in those regions is marked FAIL.
+Meta CTA buttons are rendered by the platform UI and are not treated as part of the uploaded creative. The checker focuses on the creative itself.
 
 ## What counts
 
@@ -35,7 +30,7 @@ Photography, food imagery, background design, and visual bleed are allowed outsi
 
 ## Files to upload to GitHub
 
-Upload these files to the root of your GitHub repo:
+Upload/replace these files at the root of your GitHub repo:
 
 ```text
 app.py
@@ -53,13 +48,6 @@ README.md
 3. Streamlit should redeploy automatically.
 4. If it does not, open Streamlit and click reboot/redeploy.
 
-## Local run
-
-```bash
-pip install -r requirements.txt
-streamlit run app.py
-```
-
 ## Notes
 
-OCR is used to detect text. Very small logos, stylized logos, and low-contrast legal copy may require manual review.
+OCR is used to detect text. OCR can miss stylized logos and tiny copy, so final visual review is still recommended.

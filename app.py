@@ -10,18 +10,19 @@ st.set_page_config(
 )
 
 st.title("Meta Creative Safe-Zone Checker")
-st.caption("Production rules: 1:1 Feed and 9:16 Reels/Stories. Photo/background bleed is allowed; text/logo/CTA/legal copy must stay safe.")
+st.caption("Ads-preview-aligned rules: 1:1 Feed and 9:16 Reels/Stories. Text/logo-only review.")
 
 with st.sidebar:
     st.header("Rules")
     st.write("**Feed:** 1:1 only")
-    st.write("Safe zone: outer 10% edge zone is risky for text/logo/CTA.")
+    st.write("Safe zone: central 80% of the 1:1 frame.")
+    st.write("Best use cases: Facebook Feed, Instagram Feed, Marketplace, Messenger.")
     st.write("**Reels:** 9:16 only")
-    st.write("Safe zone: 14% top, 35% bottom, 6% sides.")
+    st.write("Safe zone: 14% top, 20% bottom, 6% sides.")
     st.write("**Stories:** 9:16 only")
     st.write("Safe zone: 14% top, 20% bottom, 6% sides.")
     st.divider()
-    st.warning("Expected Meta CTA/UI overlap is checked for Reels and Stories. Text/logo/CTA in that bottom zone is marked FAIL.")
+    st.success("CTA overlap failure has been removed. Meta CTA buttons are part of the platform UI, not the uploaded creative.")
     st.divider()
     placement_mode = st.radio(
         "Placement detection",
@@ -45,7 +46,8 @@ uploaded = st.file_uploader(
 
 st.info(
     "This checker is text/logo-only. Images and background design can extend beyond the safe zone. "
-    "Critical elements include headline, logo, CTA, price, promo copy, and legal copy."
+    "Critical elements include headline, logo, CTA, price, promo copy, and legal copy. "
+    "Small logos and stylized marks may still need human review."
 )
 
 if uploaded:
@@ -71,7 +73,6 @@ if uploaded:
                 "Aspect": r.aspect_ratio_status,
                 "Resolution": r.resolution_status,
                 "Text/Logo": r.text_logo_status,
-                "Meta CTA/UI": r.meta_cta_status,
                 "Suggestions": "; ".join(r.suggestions),
                 "Reason": r.reason,
             }
