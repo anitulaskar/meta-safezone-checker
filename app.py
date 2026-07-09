@@ -10,32 +10,43 @@ st.set_page_config(
 )
 
 st.title("Meta Creative Safe-Zone Checker")
-st.caption("Ads-preview-aligned rules: 1:1 Feed and 9:16 Reels/Stories. Text/logo-only review.")
+st.caption("Updated rule: safe-zone pass/fail applies only to 9:16 ads. 1:1 and 4:5 Feed safe-zone checks are disabled.")
 
 with st.sidebar:
-    st.header("Rules")
-    st.write("**Feed:** 1:1 only")
-    st.write("Safe zone: central 80% of the 1:1 frame.")
-    st.write("Best use cases: Facebook Feed, Instagram Feed, Marketplace, Messenger.")
-    st.write("**Reels:** 9:16 only")
-    st.write("Safe zone: 14% top, 20% bottom, 6% sides.")
-    st.write("**Stories:** 9:16 only")
-    st.write("Safe zone: 14% top, 20% bottom, 6% sides.")
+    st.header("9:16 safe-zone rules")
+    st.write("Applies to Stories, Reels, Feed 9:16, and Facebook in-stream reels.")
+    st.write("- Top: 14%")
+    st.write("- Bottom: 35%")
+    st.write("- Sides: 6%")
+    st.write("- Extra lower-right guardrail: right 21% × bottom 40%")
     st.divider()
-    st.success("CTA overlap failure has been removed. Meta CTA buttons are part of the platform UI, not the uploaded creative.")
+    st.header("1:1 and 4:5 Feed")
+    st.success("Safe-zone pass/fail disabled for these formats per current workflow.")
+    st.write("The app still checks aspect ratio and resolution.")
     st.divider()
+    st.header("Text overlay best practices")
+    st.write("- Use clean, large, high-contrast type")
+    st.write("- Don’t obstruct key visuals")
+    st.write("- Avoid too many messages")
+    st.write("- Keep key text/logos/CTAs inside 9:16 safe zones")
+    st.divider()
+
     placement_mode = st.radio(
         "Placement detection",
-        ["Auto-detect from filename/shape", "Force Feed", "Force Reels", "Force Stories"],
+        [
+            "Auto-detect from filename/shape",
+            "Force 9:16 safe-zone check",
+            "Force Feed 1:1",
+            "Force Feed 4:5",
+        ],
         index=0,
     )
-    st.caption("Tip: include Feed, Reels, or Stories in filenames for better auto-detection.")
 
 placement_map = {
     "Auto-detect from filename/shape": None,
-    "Force Feed": "feed",
-    "Force Reels": "reels",
-    "Force Stories": "stories",
+    "Force 9:16 safe-zone check": "nine_sixteen",
+    "Force Feed 1:1": "feed_1x1",
+    "Force Feed 4:5": "feed_4x5",
 }
 
 uploaded = st.file_uploader(
@@ -45,9 +56,9 @@ uploaded = st.file_uploader(
 )
 
 st.info(
-    "This checker is text/logo-only. Images and background design can extend beyond the safe zone. "
-    "Critical elements include headline, logo, CTA, price, promo copy, and legal copy. "
-    "Small logos and stylized marks may still need human review."
+    "The checker focuses on critical text/logo/CTA/legal-copy containment for 9:16 assets. "
+    "Photography, background design, and visual bleed are allowed outside safe zones. "
+    "OCR can miss stylized logos and tiny copy, so final visual review is still recommended."
 )
 
 if uploaded:
@@ -72,7 +83,7 @@ if uploaded:
                 "Size": f"{r.width}×{r.height}",
                 "Aspect": r.aspect_ratio_status,
                 "Resolution": r.resolution_status,
-                "Text/Logo": r.text_logo_status,
+                "Safe zone": r.safe_zone_status,
                 "Suggestions": "; ".join(r.suggestions),
                 "Reason": r.reason,
             }
@@ -116,14 +127,15 @@ if uploaded:
 else:
     st.subheader("How to use")
     st.write(
-        "Upload PNG/JPG/WebP creative files. The app will check 1:1 Feed or 9:16 Reels/Stories safe-zone compliance "
-        "and generate annotated previews with fix suggestions."
+        "Upload PNG/JPG/WebP creative files. 9:16 assets will get the updated Meta safe-zone guardrail check. "
+        "1:1 and 4:5 Feed assets will not be failed for safe zones."
     )
 
     st.code(
         """Recommended filenames:
-Ad1_Feed_1x1.png
 Ad1_Reels_9x16.png
-Ad1_Stories_9x16.png""",
+Ad1_Stories_9x16.png
+Ad1_Feed_1x1.png
+Ad1_Feed_4x5.png""",
         language="text",
     )

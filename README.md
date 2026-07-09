@@ -1,30 +1,27 @@
-# Meta Safe-Zone Checker v4
+# Meta Safe-Zone Checker v5 — 9:16 Only Safe-Zone Update
 
-A Streamlit web app for checking Meta creative safe-zone compliance.
+This Streamlit app checks Meta creative safe zones.
 
-## Production formats
+## Important behavior
 
-This version uses only:
+Safe-zone pass/fail applies **only to 9:16 ads**.
 
-- Feed: 1:1
-- Reels: 9:16
-- Stories: 9:16
+For 1:1 and 4:5 Feed assets, safe-zone checking is disabled. The app still checks format and resolution.
 
-## Safe-zone rules
+## 9:16 safe-zone rules
 
-- Feed: critical text/logo inside central 80% of the 1:1 frame.
-- Reels: 14% top, 20% bottom, 6% sides.
-- Stories: 14% top, 20% bottom, 6% sides.
+For 9:16 ads in Stories, Reels, Feed, and Facebook in-stream reels:
 
-## CTA overlap behavior
+- Top: 14%
+- Bottom: 35%
+- Sides: 6%
+- Extra lower-right guardrail: right 21% × bottom 40%
 
-This version removes CTA-overlap failure logic.
-
-Meta CTA buttons are rendered by the platform UI and are not treated as part of the uploaded creative. The checker focuses on the creative itself.
+Critical text, logos, CTAs, price/promo copy, and legal copy should remain outside these guardrails.
 
 ## What counts
 
-The checker focuses on text/logo/CTA/legal-copy containment.
+The checker focuses on critical text/logo/CTA/legal-copy containment.
 
 Photography, food imagery, background design, and visual bleed are allowed outside the safe zone.
 
